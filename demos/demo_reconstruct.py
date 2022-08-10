@@ -95,7 +95,7 @@ if __name__ == '__main__':
                         help='path to the test data, can be image folder, image path, image list, video')
     parser.add_argument('-s', '--savefolder', default='TestSamples/examples/results', type=str,
                         help='path to the output directory, where results(obj, txt files) will be stored.')
-    parser.add_argument('--device', default='cuda', type=str,
+    parser.add_argument('--device', default='cpu', type=str,
                         help='set device, cpu for using cpu' )
     # process test images
     parser.add_argument('--iscrop', default=True, type=lambda x: x.lower() in ['true', '1'],
@@ -105,7 +105,7 @@ if __name__ == '__main__':
     parser.add_argument('--detector', default='fan', type=str,
                         help='detector for cropping face, check decalib/detectors.py for details' )
     # rendering option
-    parser.add_argument('--rasterizer_type', default='standard', type=str,
+    parser.add_argument('--rasterizer_type', default='pytorch3d', type=str,
                         help='rasterizer type: pytorch3d or standard' )
     parser.add_argument('--render_orig', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to render results in original image size, currently only works when rasterizer_type=standard')
@@ -113,11 +113,11 @@ if __name__ == '__main__':
     parser.add_argument('--useTex', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to use FLAME texture model to generate uv texture map, \
                             set it to True only if you downloaded texture model' )
-    parser.add_argument('--extractTex', default=True, type=lambda x: x.lower() in ['true', '1'],
+    parser.add_argument('--extractTex', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to extract texture from input image as the uv texture map, set false if you want albeo map from FLAME mode' )
     parser.add_argument('--saveVis', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save visualization of output' )
-    parser.add_argument('--saveKpt', default=False, type=lambda x: x.lower() in ['true', '1'],
+    parser.add_argument('--saveKpt', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save 2D and 3D keypoints' )
     parser.add_argument('--saveDepth', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save depth image' )

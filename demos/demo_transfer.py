@@ -96,13 +96,13 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='DECA: Detailed Expression Capture and Animation')
 
-    parser.add_argument('-i', '--image_path', default='TestSamples/examples/IMG_0392_inputs.jpg', type=str,
+    parser.add_argument('-i', '--image_path', default='TestSamples/examples/lopa_photo_inputs.png', type=str,
                         help='path to input image')
-    parser.add_argument('-e', '--exp_path', default='TestSamples/exp/7.jpg', type=str, 
+    parser.add_argument('-e', '--exp_path', default='TestSamples/exp/4.jpg', type=str, 
                         help='path to expression')
     parser.add_argument('-s', '--savefolder', default='TestSamples/animation_results', type=str,
                         help='path to the output directory, where results(obj, txt files) will be stored.')
-    parser.add_argument('--device', default='cuda', type=str,
+    parser.add_argument('--device', default='cpu', type=str,
                         help='set device, cpu for using cpu' )
     # rendering option
     parser.add_argument('--rasterizer_type', default='standard', type=str,
@@ -118,15 +118,15 @@ if __name__ == '__main__':
                             set it to True only if you downloaded texture model' )
     parser.add_argument('--saveVis', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save visualization of output' )
-    parser.add_argument('--saveKpt', default=False, type=lambda x: x.lower() in ['true', '1'],
+    parser.add_argument('--saveKpt', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save 2D and 3D keypoints' )
     parser.add_argument('--saveDepth', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save depth image' )
-    parser.add_argument('--saveObj', default=False, type=lambda x: x.lower() in ['true', '1'],
+    parser.add_argument('--saveObj', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save outputs as .obj' )
     parser.add_argument('--saveMat', default=False, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save outputs as .mat' )
-    parser.add_argument('--saveImages', default=False, type=lambda x: x.lower() in ['true', '1'],
+    parser.add_argument('--saveImages', default=True, type=lambda x: x.lower() in ['true', '1'],
                         help='whether to save visualization output as seperate images' )
     main(parser.parse_args())
 

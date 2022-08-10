@@ -50,8 +50,8 @@ class DECA(nn.Module):
         self._setup_renderer(self.cfg.model)
 
     def _setup_renderer(self, model_cfg):
-        set_rasterizer(self.cfg.rasterizer_type)
-        self.render = SRenderY(self.image_size, obj_filename=model_cfg.topology_path, uv_size=model_cfg.uv_size, rasterizer_type=self.cfg.rasterizer_type).to(self.device)
+        set_rasterizer('pytorch3d') #self.cfg.rasterizer_type
+        self.render = SRenderY(self.image_size, obj_filename=model_cfg.topology_path, uv_size=model_cfg.uv_size, rasterizer_type='pytorch3d').to(self.device)
         # face mask for rendering details
         mask = imread(model_cfg.face_eye_mask_path).astype(np.float32)/255.; mask = torch.from_numpy(mask[:,:,0])[None,None,:,:].contiguous()
         self.uv_face_eye_mask = F.interpolate(mask, [model_cfg.uv_size, model_cfg.uv_size]).to(self.device)
@@ -86,7 +86,7 @@ class DECA(nn.Module):
         model_path = self.cfg.pretrained_modelpath
         if os.path.exists(model_path):
             print(f'trained model found. load {model_path}')
-            checkpoint = torch.load(model_path)
+            checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
             self.checkpoint = checkpoint
             util.copy_state_dict(self.E_flame.state_dict(), checkpoint['E_flame'])
             util.copy_state_dict(self.E_detail.state_dict(), checkpoint['E_detail'])
@@ -301,7 +301,7 @@ class DECA(nn.Module):
         # upsample mesh, save detailed mesh
         texture = texture[:,:,[2,1,0]]
         normals = opdict['normals'][i].cpu().numpy()
-        displacement_map = opdict['displacement_map'][i].cpu().numpy().squeeze()
+        displacement_map = opdict['displacement_map'][i].cpu().detach().numpy().squeeze()
         dense_vertices, dense_colors, dense_faces = util.upsample_mesh(vertices, normals, faces, displacement_map, texture, self.dense_template)
         util.write_obj(filename.replace('.obj', '_detail.obj'), 
                         dense_vertices, 

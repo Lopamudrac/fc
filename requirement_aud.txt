@@ -2,7 +2,7 @@ appdirs==1.4.4
 asttokens==2.0.5
 audioread==2.1.9
 backcall==0.2.0
-certifi @ file:///C:/Windows/TEMP/abs_e9b7158a-aa56-4a5b-87b6-c00d295b01fanefpc8_o/croots/recipe/certifi_1655968940823/work/certifi
+#certifi @ file:///C:/Windows/TEMP/abs_e9b7158a-aa56-4a5b-87b6-c00d295b01fanefpc8_o/croots/recipe/certifi_1655968940823/work/certifi
 cffi==1.15.1
 charset-normalizer==2.1.0
 colorama==0.4.5
@@ -42,9 +42,9 @@ six==1.16.0
 SoundFile==0.10.3.post1
 stack-data==0.3.0
 threadpoolctl==3.1.0
-torch==1.12.0
-torchaudio==0.12.0
-torchvision==0.13.0
+torch==1.8.1
+torchaudio #==0.12.0
+torchvision #==0.13.0
 traitlets==5.3.0
 typing_extensions==4.3.0
 urllib3==1.26.10

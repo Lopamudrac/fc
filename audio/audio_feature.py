@@ -12,67 +12,11 @@ import torchaudio.transforms as T
 import matplotlib.pyplot as plt
 from IPython.display import Audio
 import librosa
-from torchvision.models import resnet34
+from torchvision.models import resnet18
 from sklearn.model_selection import train_test_split
 import torch.nn as nn
 import torch.optim as optim
 
-class CNN(nn.Module):
-    
-    def __init__(self, ):
-        super(CNN, self).__init__()
-        
-        # Block #1: 
-        self.layer1 = nn.Sequential(
-            nn.Conv1d(in_channels=1, out_channels=256, kernel_size=5),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=5, stride=2)
-        )
-        
-        # Block #2:  
-        self.layer2 = nn.Sequential(
-            nn.Conv1d(in_channels=256, out_channels=256, kernel_size=5),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=5, stride=2)
-        )
-        # Block #3: 
-        self.layer3 = nn.Sequential(
-            nn.Conv1d(in_channels=256, out_channels=128, kernel_size=5),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=5, stride=2)
-        )
-        
-        # Block #4: 
-        self.layer4 = nn.Sequential(
-            nn.Conv1d(in_channels=128, out_channels=64, kernel_size=5),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=5, stride=2)
-        )
-        
-        # Block #5: 
-        self.layer5 = nn.Sequential(
-            nn.Linear(in_features=192, out_features=32),
-            nn.ReLU(),
-            nn.Dropout(p=0.3)
-        )
-         # FC 5 → softmax
-        self.fc = nn.Linear(in_features=32, out_features=8)
-        self.softmax = nn.Softmax(dim=1)
-        
-    def forward(self, x):
-        
-        # Channel x H = 1 x 162 
-        out = self.layer1(x.view(-1, 1, 160))
-        
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.layer4(out)
-        out = out.view(out.size(0), -1)
-        out = self.layer5(out)
-        out = self.fc(out)
-        out = self.softmax(out)
-        
-        return out
 
 #resNet model
 def audio_model():
@@ -80,7 +24,7 @@ def audio_model():
         device=torch.device('cuda:0')
     else:
         device=torch.device('cpu')
-    model = resnet34()
+    model = resnet18()
     #model=CNN()
     model.fc = nn.Linear(512,8)
     model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)

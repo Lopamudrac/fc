@@ -130,4 +130,4 @@ if __name__ == '__main__':
                         help='whether to save visualization output as seperate images' )
     main(parser.parse_args())
 
-    main(parser.parse_args())
+    #main(parser.parse_args())

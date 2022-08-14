@@ -5,9 +5,9 @@ from audio_feature import feature_extraction
 import torch.optim as optim
 
 
-training_loader,training_y_loader,validation_loader,validation_y_loader,test_loader,test_y_loader,device, optimizer,loss_fn,learning_rate,resnet_model=feature_extraction()
-res_train_loss=[]
-res_valid_loss=[]
+# training_loader,training_y_loader,validation_loader,validation_y_loader,test_loader,test_y_loader,device, optimizer,loss_fn,learning_rate,resnet_model=feature_extraction()
+# res_train_loss=[]
+# res_valid_loss=[]
 
 
 # print("training loader",training_loader,"train y loader",training_y_loader,"val loader",validation_loader,
@@ -82,5 +82,9 @@ def train_data(model,epochs, loss_fn, train_loader, train_y_loader, valid_loader
         accuracy = np.mean(trace_yhat.argmax(axis=1)==trace_y)
         print(f'Epoch - {epoch} Valid-Loss : {np.mean(valid_losses[-1])} Valid-Accuracy : {accuracy}')
 
-train_data(resnet_model,100,loss_fn, training_loader, training_y_loader, 
-validation_loader,validation_y_loader,res_train_loss,res_valid_loss)
+def audio_classifier():
+    training_loader,training_y_loader,validation_loader,validation_y_loader,test_loader,test_y_loader,device, optimizer,loss_fn,learning_rate,resnet_model=feature_extraction()
+    res_train_loss=[]
+    res_valid_loss=[]
+    train_data(resnet_model,100,loss_fn, training_loader, training_y_loader, 
+    validation_loader,validation_y_loader,res_train_loss,res_valid_loss)
